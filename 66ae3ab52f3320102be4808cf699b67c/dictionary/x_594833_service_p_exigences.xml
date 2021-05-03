@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element label="Exigences" max_length="40" name="x_594833_service_p_exigences" type="collection">
+        <element label="Exigence" max_length="40" name="exigence" type="string"/>
+        <element attributes="edge_encryption_enabled=true" choice="3" default="TBD" label="Etat" mandatory="true" max_length="40" name="u_etat" type="string">
+            <choice>
+                <element inactive_on_update="false" label="To be done" sequence="0" value="TBD"/>
+                <element inactive_on_update="false" label="Work In Progress" sequence="1" value="wip"/>
+                <element inactive_on_update="false" label="Done" sequence="2" value="done"/>
+                <element inactive_on_update="false" label="On Hold" sequence="3" value="on hold"/>
+            </choice>
+        </element>
+        <element attributes="encode_utf8=false" label="Groupe" mandatory="true" max_length="32" name="u_groupe" reference="sys_user_group" type="reference"/>
+        <index name="index">
+            <element name="u_groupe"/>
+        </index>
+    </element>
+</database>
