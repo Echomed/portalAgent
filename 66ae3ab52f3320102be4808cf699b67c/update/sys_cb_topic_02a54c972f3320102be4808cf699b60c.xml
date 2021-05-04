@@ -1,0 +1,665 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_cb_topic">
+    <sys_cb_topic action="INSERT_OR_UPDATE">
+        <applicability/>
+        <category/>
+        <channels/>
+        <connect_queue/>
+        <description>Change l'état des exigences</description>
+        <flexible_conversation_switching>false</flexible_conversation_switching>
+        <graph>{
+  "graph_api_version": "1.0.21",
+  "goals": {
+    "primary": {
+      "id": "primary",
+      "trigger": {
+        "type": "primary"
+      },
+      "name": "primary",
+      "applicability": "",
+      "description": "",
+      "nodes": {
+        "b89aa07751864ad99c71b9fff4d53887": {
+          "id": "b89aa07751864ad99c71b9fff4d53887",
+          "stepType": "Start",
+          "name": "Start",
+          "greetingResponse": {
+            "value": "",
+            "mode": "simple"
+          }
+        },
+        "f3bc52d25bfe4ecab7bdc736ed3bd2c3": {
+          "id": "f3bc52d25bfe4ecab7bdc736ed3bd2c3",
+          "stepType": "TerminateGoal",
+          "name": "End",
+          "confirmationMessage": {
+            "mode": "simple",
+            "value": ""
+          }
+        },
+        "9fed92d9e63844b2864058e7374443c7": {
+          "stepType": "ReferenceChoicePrompt",
+          "name": "Liste exigences",
+          "prompt": {
+            "value": "Quel exigence souhaitez vous modifier?",
+            "mode": "simple"
+          },
+          "confirmMessage": {
+            "value": "",
+            "mode": "simple"
+          },
+          "acknowledgeMsg": {
+            "value": "",
+            "mode": "simple"
+          },
+          "applicability": {
+            "value": "",
+            "mode": "query"
+          },
+          "skippable": {
+            "value": "",
+            "mode": "query"
+          },
+          "defaultValue": {
+            "value": "",
+            "mode": "simple"
+          },
+          "variableId": "8a78b56ebfc34e069d357e02acb75293",
+          "id": "9fed92d9e63844b2864058e7374443c7",
+          "mode": "glide_record",
+          "script": "",
+          "noRecordsResponseMsg": {
+            "value": "Vous n'avez aucune tache.",
+            "mode": "simple"
+          },
+          "condition": {
+            "mode": "glide_scripted_query",
+            "value": "(function execute(table) {\n    /* Code your GlideRecord query logic here. For example:\n\n        var options = [];\n        var gr = new GlideRecord(table);\n        gr.addEncodedQuery('active=true^numberSTARTSWITHINC001001');\n        gr.setLimit(10);\n        gr.query();\n        while(gr.next()) {\n            options.push({ 'value': gr.getUniqueValue(), 'label': gr.getValue('short_description') });\n        }\n        return options;\n    */\n\n    var options = []; // add options here...\n    var gr = new GlideRecord(table);\n    gr.addQuery('u_groupeDYNAMICd6435e965f510100a9ad2572f2b47744');\n    gr.query();\n\n    while(gr.next()) {\n            options.push({ 'value': gr.getUniqueValue(), 'label': gr.getDisplayValue('exigence') + \": \"+ gr.getDisplayValue('u_etat') });\n        }\n\n    return options;\n})(table)\n"
+          },
+          "withNluUserInput": false,
+          "skipIfFulfilled": false
+        },
+        "85ae3152e1914bb8a91bf26dd6059ba3": {
+          "id": "85ae3152e1914bb8a91bf26dd6059ba3",
+          "stepType": "RecordOutput",
+          "name": "Carte Exigence",
+          "variableId": "8a78b56ebfc34e069d357e02acb75293",
+          "mode": "variable",
+          "tableName": "x_594833_service_p_exigences",
+          "fields": [
+            "exigence",
+            "u_etat",
+            "u_groupe"
+          ],
+          "applicability": {
+            "value": "",
+            "mode": "query"
+          },
+          "condition": {
+            "mode": "",
+            "value": ""
+          }
+        },
+        "8e1c42fe933e4b30b7d1d983c0c0e6b7": {
+          "stepType": "ChoicePrompt",
+          "name": "Edit Exigence",
+          "prompt": {
+            "value": "Que voulez-vous modifier",
+            "mode": "simple"
+          },
+          "confirmMessage": {
+            "value": "",
+            "mode": "simple"
+          },
+          "acknowledgeMsg": {
+            "value": "",
+            "mode": "simple"
+          },
+          "applicability": {
+            "value": "",
+            "mode": "query"
+          },
+          "skippable": {
+            "value": "",
+            "mode": "query"
+          },
+          "defaultValue": {
+            "value": "",
+            "mode": "simple"
+          },
+          "variableId": "6504a171340f45e7b6834b90a3bb7d05",
+          "id": "8e1c42fe933e4b30b7d1d983c0c0e6b7",
+          "withNluUserInput": false,
+          "skipIfFulfilled": false
+        },
+        "bc44ab6928644aa89a4417674f1fedff": {
+          "id": "bc44ab6928644aa89a4417674f1fedff",
+          "stepType": "Decision",
+          "name": "Quoi modifier?"
+        },
+        "ce564fefa8554fd49af5b5c6befad9b6": {
+          "id": "ce564fefa8554fd49af5b5c6befad9b6",
+          "stepType": "Prompt",
+          "name": "Nouvelle exigence",
+          "prompt": {
+            "value": "Quel est la nouvelle exigence?",
+            "mode": "simple"
+          },
+          "confirmMessage": {
+            "value": "",
+            "mode": "simple"
+          },
+          "acknowledgeMsg": {
+            "value": "",
+            "mode": "simple"
+          },
+          "applicability": {
+            "value": "",
+            "mode": "query"
+          },
+          "skippable": {
+            "value": "",
+            "mode": "query"
+          },
+          "defaultValue": {
+            "value": "",
+            "mode": "simple"
+          },
+          "withNluUserInput": false,
+          "skipIfFulfilled": false,
+          "variableId": "d0f524059f59422db382ba999777bf58",
+          "inputType": {
+            "format": "Text",
+            "script": ""
+          }
+        },
+        "afd43e256aa045369d8da7f1636b5a54": {
+          "id": "afd43e256aa045369d8da7f1636b5a54",
+          "stepType": "CrudAction",
+          "name": "Changer Exigence",
+          "template": "exigence={{vaInputs.nouvelle_exigence}}",
+          "mode": "update",
+          "record": "8a78b56ebfc34e069d357e02acb75293",
+          "applicability": {
+            "value": "",
+            "mode": "query"
+          },
+          "variableId": "811ad146e02f4ac3a228c0038d435208"
+        },
+        "89378e16e76245e9abfa781888746ce8": {
+          "stepType": "ChoicePrompt",
+          "name": "Choix groupe",
+          "prompt": {
+            "value": "Quel est le nouveau groupe?",
+            "mode": "simple"
+          },
+          "confirmMessage": {
+            "value": "",
+            "mode": "simple"
+          },
+          "acknowledgeMsg": {
+            "value": "",
+            "mode": "simple"
+          },
+          "applicability": {
+            "value": "",
+            "mode": "query"
+          },
+          "skippable": {
+            "value": "",
+            "mode": "query"
+          },
+          "defaultValue": {
+            "value": "",
+            "mode": "simple"
+          },
+          "variableId": "4f48655f1eb94d90af950e53c1a15a30",
+          "id": "89378e16e76245e9abfa781888746ce8",
+          "withNluUserInput": false,
+          "skipIfFulfilled": false
+        },
+        "5f11ba334d5c43b19545a90e7f5e73c9": {
+          "id": "5f11ba334d5c43b19545a90e7f5e73c9",
+          "stepType": "CrudAction",
+          "name": "Changer Groupe",
+          "template": "u_groupe={{vaInputs.choix_groupe}}",
+          "mode": "update",
+          "record": "8a78b56ebfc34e069d357e02acb75293",
+          "applicability": {
+            "value": "",
+            "mode": "query"
+          },
+          "variableId": "b6023d1a400c4266b5aa15d443f0767f"
+        },
+        "9a12e6342e834938b37ecc107d7c09d5": {
+          "stepType": "ChoicePrompt",
+          "name": "Nouvel etat",
+          "prompt": {
+            "value": "Quel est le nouvel état?",
+            "mode": "simple"
+          },
+          "confirmMessage": {
+            "value": "",
+            "mode": "simple"
+          },
+          "acknowledgeMsg": {
+            "value": "",
+            "mode": "simple"
+          },
+          "applicability": {
+            "value": "",
+            "mode": "query"
+          },
+          "skippable": {
+            "value": "",
+            "mode": "query"
+          },
+          "defaultValue": {
+            "value": "",
+            "mode": "simple"
+          },
+          "variableId": "7de066994ec44aa6b6514d41d31d919f",
+          "id": "9a12e6342e834938b37ecc107d7c09d5",
+          "withNluUserInput": false,
+          "skipIfFulfilled": false
+        },
+        "4d8ac40dcd194608a295cc71a919f9a7": {
+          "id": "4d8ac40dcd194608a295cc71a919f9a7",
+          "stepType": "CrudAction",
+          "name": "Changer etat",
+          "template": "u_etat={{vaInputs.nouvel_etat}}",
+          "mode": "update",
+          "record": "8a78b56ebfc34e069d357e02acb75293",
+          "applicability": {
+            "value": "",
+            "mode": "query"
+          },
+          "variableId": "650e500ffd664b25bf257b4495d9d30c"
+        },
+        "295a44389a1e41cc91d6d12e4b9ca23a": {
+          "id": "295a44389a1e41cc91d6d12e4b9ca23a",
+          "stepType": "RecordOutput",
+          "name": "Exigence maj",
+          "variableId": "8a78b56ebfc34e069d357e02acb75293",
+          "mode": "variable",
+          "tableName": "x_594833_service_p_exigences",
+          "fields": [
+            "exigence",
+            "u_etat",
+            "u_groupe"
+          ],
+          "applicability": {
+            "value": "",
+            "mode": "query"
+          },
+          "condition": {
+            "mode": "",
+            "value": ""
+          }
+        },
+        "9b907ee6e54c45cc8c35506be4f82aff": {
+          "id": "9b907ee6e54c45cc8c35506be4f82aff",
+          "stepType": "Prompt",
+          "name": "Chercher autre exigence",
+          "prompt": {
+            "value": "Chercher une autre exigence?",
+            "mode": "simple"
+          },
+          "confirmMessage": {
+            "value": "",
+            "mode": "simple"
+          },
+          "acknowledgeMsg": {
+            "value": "",
+            "mode": "simple"
+          },
+          "applicability": {
+            "value": "",
+            "mode": "query"
+          },
+          "skippable": {
+            "value": "",
+            "mode": "query"
+          },
+          "defaultValue": {
+            "value": "",
+            "mode": "simple"
+          },
+          "withNluUserInput": false,
+          "skipIfFulfilled": false,
+          "variableId": "2cffa169059e4caa88a0a0cf408c5375"
+        },
+        "6f5020f365d349d399e8bf12d9dea0ce": {
+          "id": "6f5020f365d349d399e8bf12d9dea0ce",
+          "stepType": "Decision",
+          "name": "Decision"
+        }
+      },
+      "edges": [
+        {
+          "id": "0782c0b6e998434ca11daef5fb8cb9af",
+          "edgeType": "Edge",
+          "source": "b89aa07751864ad99c71b9fff4d53887",
+          "target": "9fed92d9e63844b2864058e7374443c7",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "115aebe08ac54824a0512e63fa546075",
+          "edgeType": "Edge",
+          "source": "9fed92d9e63844b2864058e7374443c7",
+          "target": "85ae3152e1914bb8a91bf26dd6059ba3",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "3b02db23c48544bbaa45081d4cd70e68",
+          "edgeType": "Edge",
+          "source": "85ae3152e1914bb8a91bf26dd6059ba3",
+          "target": "8e1c42fe933e4b30b7d1d983c0c0e6b7",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "ef308eb3a60a4e2aab6b02238c7cd73f",
+          "edgeType": "Edge",
+          "source": "8e1c42fe933e4b30b7d1d983c0c0e6b7",
+          "target": "bc44ab6928644aa89a4417674f1fedff",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "54ea71bcb37b4a678cd70505d08a226b",
+          "edgeType": "Branch",
+          "source": "bc44ab6928644aa89a4417674f1fedff",
+          "target": "ce564fefa8554fd49af5b5c6befad9b6",
+          "sourcePort": "",
+          "targetPort": "",
+          "expression": {
+            "value": "vaInputs.edit_exigence=exigence",
+            "mode": "query"
+          },
+          "label": "Exigence"
+        },
+        {
+          "id": "66af7c6a847047eb89d17eadf881f05d",
+          "edgeType": "Edge",
+          "source": "ce564fefa8554fd49af5b5c6befad9b6",
+          "target": "afd43e256aa045369d8da7f1636b5a54",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "5b59ff25e64a4c03bc6db985237de65e",
+          "edgeType": "Branch",
+          "source": "bc44ab6928644aa89a4417674f1fedff",
+          "target": "89378e16e76245e9abfa781888746ce8",
+          "sourcePort": "",
+          "targetPort": "",
+          "expression": {
+            "value": "vaInputs.edit_exigence=u_groupe",
+            "mode": "query"
+          },
+          "label": "Groupe"
+        },
+        {
+          "id": "9f425612ee2f43ac93dfb0e56ac24fef",
+          "edgeType": "Edge",
+          "source": "89378e16e76245e9abfa781888746ce8",
+          "target": "5f11ba334d5c43b19545a90e7f5e73c9",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "b18e92a91c134e1fb9d3398d8ad83c16",
+          "edgeType": "Edge",
+          "source": "5f11ba334d5c43b19545a90e7f5e73c9",
+          "target": "295a44389a1e41cc91d6d12e4b9ca23a",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "2572a6dd2a0f4920b265a75f8093a42c",
+          "edgeType": "Branch",
+          "source": "bc44ab6928644aa89a4417674f1fedff",
+          "target": "9a12e6342e834938b37ecc107d7c09d5",
+          "sourcePort": "",
+          "targetPort": "",
+          "expression": {
+            "value": "vaInputs.edit_exigence=u_etat",
+            "mode": "query"
+          },
+          "label": "Etat"
+        },
+        {
+          "id": "bb3673ea666c4d66b65acc3832968662",
+          "edgeType": "Edge",
+          "source": "9a12e6342e834938b37ecc107d7c09d5",
+          "target": "4d8ac40dcd194608a295cc71a919f9a7",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "8abe952119c24675add796f2fe2e2414",
+          "edgeType": "Edge",
+          "source": "4d8ac40dcd194608a295cc71a919f9a7",
+          "target": "295a44389a1e41cc91d6d12e4b9ca23a",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "939dd5b23ccd482d986f984da49a5a38",
+          "edgeType": "Edge",
+          "source": "afd43e256aa045369d8da7f1636b5a54",
+          "target": "295a44389a1e41cc91d6d12e4b9ca23a",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "445ddff7506d484d8dded010089369c8",
+          "edgeType": "Edge",
+          "source": "295a44389a1e41cc91d6d12e4b9ca23a",
+          "target": "9b907ee6e54c45cc8c35506be4f82aff",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "8a607175d81143f1b44da0ecf08dff16",
+          "edgeType": "Edge",
+          "source": "9b907ee6e54c45cc8c35506be4f82aff",
+          "target": "6f5020f365d349d399e8bf12d9dea0ce",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "c561d26625a745138fc64c6257a76098",
+          "edgeType": "Branch",
+          "source": "6f5020f365d349d399e8bf12d9dea0ce",
+          "target": "f3bc52d25bfe4ecab7bdc736ed3bd2c3",
+          "sourcePort": "",
+          "targetPort": "",
+          "expression": {
+            "value": "",
+            "mode": "query"
+          },
+          "label": "Non"
+        },
+        {
+          "id": "b45d5d4cf1444e46aeb18673080e073f",
+          "edgeType": "Branch",
+          "source": "6f5020f365d349d399e8bf12d9dea0ce",
+          "target": "9fed92d9e63844b2864058e7374443c7",
+          "sourcePort": "",
+          "targetPort": "",
+          "expression": {
+            "value": "vaInputs.chercher_autre_exigence=true",
+            "mode": "query"
+          },
+          "label": "Oui"
+        }
+      ]
+    }
+  },
+  "variables": {
+    "current-user": {
+      "category": "vaInputs",
+      "id": "current-user",
+      "label": "User",
+      "name": "user",
+      "table": "sys_user",
+      "varType": "reference"
+    },
+    "8a78b56ebfc34e069d357e02acb75293": {
+      "id": "8a78b56ebfc34e069d357e02acb75293",
+      "name": "liste_exigences",
+      "label": "Liste Exigences",
+      "varType": "reference",
+      "table": "x_594833_service_p_exigences",
+      "category": "vaInputs"
+    },
+    "6504a171340f45e7b6834b90a3bb7d05": {
+      "id": "6504a171340f45e7b6834b90a3bb7d05",
+      "name": "edit_exigence",
+      "label": "Edit Exigence",
+      "varType": "choice",
+      "choices": [
+        {
+          "label": "Groupe",
+          "value": "u_groupe",
+          "checked": true
+        },
+        {
+          "label": "Etat",
+          "value": "u_etat",
+          "checked": true
+        },
+        {
+          "label": "Exigence",
+          "value": "exigence",
+          "checked": true
+        }
+      ],
+      "category": "vaInputs"
+    },
+    "d0f524059f59422db382ba999777bf58": {
+      "id": "d0f524059f59422db382ba999777bf58",
+      "name": "nouvelle_exigence",
+      "label": "Nouvelle Exigence",
+      "varType": "string",
+      "category": "vaInputs"
+    },
+    "811ad146e02f4ac3a228c0038d435208": {
+      "id": "811ad146e02f4ac3a228c0038d435208",
+      "name": "changer_exigence",
+      "label": "Changer Exigence",
+      "varType": "reference",
+      "table": "",
+      "inactive": true,
+      "category": "vaInputs"
+    },
+    "4f48655f1eb94d90af950e53c1a15a30": {
+      "id": "4f48655f1eb94d90af950e53c1a15a30",
+      "name": "choix_groupe",
+      "label": "Choix Groupe",
+      "varType": "choice",
+      "choices": [
+        {
+          "label": "Binôme 1",
+          "value": "binôme 1"
+        },
+        {
+          "label": "Binôme 2",
+          "value": "binôme 2",
+          "checked": true
+        },
+        {
+          "label": "Binôme 3",
+          "value": "binôme 3",
+          "checked": true
+        }
+      ],
+      "category": "vaInputs"
+    },
+    "b6023d1a400c4266b5aa15d443f0767f": {
+      "id": "b6023d1a400c4266b5aa15d443f0767f",
+      "name": "changer_groupe",
+      "label": "Changer Groupe",
+      "varType": "reference",
+      "table": "x_594833_service_p_exigences",
+      "inactive": true,
+      "category": "vaInputs"
+    },
+    "7de066994ec44aa6b6514d41d31d919f": {
+      "id": "7de066994ec44aa6b6514d41d31d919f",
+      "name": "nouvel_etat",
+      "label": "Nouvel Etat",
+      "varType": "choice",
+      "choices": [
+        {
+          "label": "Done",
+          "value": "done"
+        },
+        {
+          "label": "To be done",
+          "value": "to be done",
+          "checked": true
+        },
+        {
+          "label": "Work In Progress",
+          "value": "work in progress",
+          "checked": true
+        },
+        {
+          "label": "On Hold",
+          "value": "on hold",
+          "checked": true
+        }
+      ],
+      "category": "vaInputs"
+    },
+    "650e500ffd664b25bf257b4495d9d30c": {
+      "id": "650e500ffd664b25bf257b4495d9d30c",
+      "name": "changer_etat",
+      "label": "Changer Etat",
+      "varType": "reference",
+      "table": "",
+      "inactive": true,
+      "category": "vaInputs"
+    },
+    "2cffa169059e4caa88a0a0cf408c5375": {
+      "id": "2cffa169059e4caa88a0a0cf408c5375",
+      "name": "chercher_autre_exigence",
+      "label": "Chercher Autre Exigence",
+      "varType": "boolean",
+      "category": "vaInputs"
+    }
+  }
+}</graph>
+        <key_phrases>Modifier exigence,exigences,exigence,etat,état,change,changer,modifier</key_phrases>
+        <library>false</library>
+        <live_agent>false</live_agent>
+        <name>Modifier exigence</name>
+        <nlu_intent/>
+        <nlu_intent_label/>
+        <nlu_model/>
+        <nlu_model_label/>
+        <nlu_provider/>
+        <roles/>
+        <source_topic_id/>
+        <sys_class_name>sys_cb_topic</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2021-05-03 16:01:11</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_id>02a54c972f3320102be4808cf699b60c</sys_id>
+        <sys_mod_count>12</sys_mod_count>
+        <sys_name>Modifier exigence</sys_name>
+        <sys_package display_value="Service portal 1" source="x_594833_service_p">66ae3ab52f3320102be4808cf699b67c</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Service portal 1">66ae3ab52f3320102be4808cf699b67c</sys_scope>
+        <sys_update_name>sys_cb_topic_02a54c972f3320102be4808cf699b60c</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2021-05-03 17:37:46</sys_updated_on>
+        <type>STANDARD</type>
+        <variables/>
+    </sys_cb_topic>
+    <sys_variable_value action="delete_multiple" query="document_key=02a54c972f3320102be4808cf699b60c"/>
+</record_update>

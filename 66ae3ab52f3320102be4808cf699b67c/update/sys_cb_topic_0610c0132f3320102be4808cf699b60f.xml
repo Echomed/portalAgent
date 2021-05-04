@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_cb_topic">
+    <sys_cb_topic action="INSERT_OR_UPDATE">
+        <applicability/>
+        <category/>
+        <channels/>
+        <connect_queue/>
+        <description/>
+        <flexible_conversation_switching>false</flexible_conversation_switching>
+        <graph>{
+  "graph_api_version": "1.0.21",
+  "goals": {
+    "primary": {
+      "id": "primary",
+      "trigger": {
+        "type": "primary"
+      },
+      "name": "primary",
+      "applicability": "",
+      "description": "",
+      "nodes": {
+        "d71256994e24413187b94e3c74d3a86f": {
+          "id": "d71256994e24413187b94e3c74d3a86f",
+          "stepType": "Start",
+          "name": "Start",
+          "greetingResponse": {
+            "value": "Bonjour.",
+            "mode": "simple"
+          }
+        },
+        "e28f028b3e834237b9f609b2b45b4d0a": {
+          "id": "e28f028b3e834237b9f609b2b45b4d0a",
+          "stepType": "TerminateGoal",
+          "name": "End",
+          "confirmationMessage": {
+            "mode": "simple",
+            "value": ""
+          }
+        },
+        "306b270cbcd04861a23029b402c09482": {
+          "id": "306b270cbcd04861a23029b402c09482",
+          "stepType": "TextOutput",
+          "name": "Confirm Pair",
+          "value": {
+            "value": "(function execute() {\n    /* Return a quoted string.  For example:\n\n       if (vaInputs.first_name == 'Bill') {\n           return gs.getMessage('hi there {0}', [vaInputs.first_name]);\n       } else {\n           return gs.getMessage('how are you {0}', [vaInputs.last_name]);\n       }\n    */\n   return 'You selected: ' + vaInputs.pair_group.getDisplayValue();\n})()\n",
+            "mode": "script"
+          },
+          "applicability": {
+            "value": "",
+            "mode": "query"
+          }
+        },
+        "ac48bb49bb2a4259b43c4bf4f70efb94": {
+          "stepType": "ReferenceChoicePrompt",
+          "name": "Pair group",
+          "prompt": {
+            "value": "Quel binôme souhaitez vous connaitre?",
+            "mode": "simple"
+          },
+          "confirmMessage": {
+            "value": "",
+            "mode": "simple"
+          },
+          "acknowledgeMsg": {
+            "value": "",
+            "mode": "simple"
+          },
+          "applicability": {
+            "value": "",
+            "mode": "query"
+          },
+          "skippable": {
+            "value": "",
+            "mode": "query"
+          },
+          "defaultValue": {
+            "value": "",
+            "mode": "simple"
+          },
+          "variableId": "07dc2487f27c43b8a92d0d875df91f74",
+          "id": "ac48bb49bb2a4259b43c4bf4f70efb94",
+          "mode": "glide_record",
+          "script": "",
+          "noRecordsResponseMsg": {
+            "value": "Ce binôme n'existe pas",
+            "mode": "simple"
+          },
+          "condition": {
+            "mode": "glide_scripted_query",
+            "value": "(function execute(table) {\n\t\n\t    // Initialize an array for the list of NeedIt records to show\n\t    var options = [];\n\t    var queryString = \"Binôme\"\n\t    // Query the table selected in the Table field for active records with the \n\t    // u_request_type selected in the NeedIt Type node where the user is the \n\t    // u_requested_for. Order the results by the When needed value.\n\t    var grBinomes = new GlideRecord(table);\n\t    grBinomes.addQuery('name','CONTAINS',queryString);\n\t\tgrBinomes.orderBy('name');\n\t    grBinomes.query();\n\t\n\t    // Push a value and label pair to the array for each record the query returns.\n\t    // The value is the unique value. The label is the number, u_when_needed, and \t\t    // short_description values for the NeedIt record.\n\t    while(grBinomes.next()) {\n\t        options.push({ 'value': grBinomes.getUniqueValue(), 'label': grBinomes.getValue('name') });\n\t    }\n\t\n\t    // Return the array\n\t    return options;\n\t\n\t})(table)"
+          },
+          "withNluUserInput": false,
+          "skipIfFulfilled": false
+        },
+        "1af3ebfec0ad42b38417701ed6c5f0b0": {
+          "id": "1af3ebfec0ad42b38417701ed6c5f0b0",
+          "stepType": "RecordOutput",
+          "name": "Pair Card",
+          "variableId": "07dc2487f27c43b8a92d0d875df91f74",
+          "mode": "variable",
+          "tableName": "sys_user_group",
+          "fields": [
+            "name",
+            "parent",
+            "manager",
+            "description"
+          ],
+          "applicability": {
+            "value": "",
+            "mode": "query"
+          },
+          "condition": {
+            "mode": "",
+            "value": ""
+          }
+        },
+        "bca0c66c48b44d81b9601808f5631074": {
+          "id": "bca0c66c48b44d81b9601808f5631074",
+          "stepType": "TextOutput",
+          "name": "Pair Names",
+          "value": {
+            "value": "(function execute() {\n  \n      var answer = [];\n      answer.push(\"Les membres de ce binôme sont : \")\n        var mem = new GlideRecord('sys_user_grmember');\n        \n        mem.addQuery('group.name', vaInputs.pair_group.getDisplayValue());\n        mem.query();\n        while (mem.next()) {\n                  answer.push(mem.getDisplayValue('user'));\n        }\n        return answer;\n})()\n",
+            "mode": "script"
+          },
+          "applicability": {
+            "value": "",
+            "mode": "query"
+          }
+        },
+        "cd9e307dc82a4508ad708c0dd87a4342": {
+          "id": "cd9e307dc82a4508ad708c0dd87a4342",
+          "stepType": "Prompt",
+          "name": "Search Again",
+          "prompt": {
+            "value": "Voulez trouver un autre binôme?",
+            "mode": "simple"
+          },
+          "confirmMessage": {
+            "value": "",
+            "mode": "simple"
+          },
+          "acknowledgeMsg": {
+            "value": "",
+            "mode": "simple"
+          },
+          "applicability": {
+            "value": "",
+            "mode": "query"
+          },
+          "skippable": {
+            "value": "",
+            "mode": "query"
+          },
+          "defaultValue": {
+            "value": "",
+            "mode": "simple"
+          },
+          "withNluUserInput": false,
+          "skipIfFulfilled": false,
+          "variableId": "f36b25db454940af9dcd30855792a991"
+        },
+        "9ecd494b81114f06a803736fd0c6dd89": {
+          "id": "9ecd494b81114f06a803736fd0c6dd89",
+          "stepType": "Decision",
+          "name": "Trouver autre binôme?"
+        }
+      },
+      "edges": [
+        {
+          "id": "547de0b0f1744d709943700f1b4cf9ef",
+          "edgeType": "Edge",
+          "source": "d71256994e24413187b94e3c74d3a86f",
+          "target": "ac48bb49bb2a4259b43c4bf4f70efb94",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "800ddd0eb5c2402d83965f946b029c50",
+          "edgeType": "Edge",
+          "source": "ac48bb49bb2a4259b43c4bf4f70efb94",
+          "target": "306b270cbcd04861a23029b402c09482",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "f4db3490d6934ef285ac25aeaba06aab",
+          "edgeType": "Edge",
+          "source": "306b270cbcd04861a23029b402c09482",
+          "target": "1af3ebfec0ad42b38417701ed6c5f0b0",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "463e6349b76044749b1837388e5bc089",
+          "edgeType": "Edge",
+          "source": "1af3ebfec0ad42b38417701ed6c5f0b0",
+          "target": "bca0c66c48b44d81b9601808f5631074",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "51508da53dc74b7394b8347def4d162c",
+          "edgeType": "Edge",
+          "source": "bca0c66c48b44d81b9601808f5631074",
+          "target": "cd9e307dc82a4508ad708c0dd87a4342",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "0a27a550aeef4c73b42e1965a41485c3",
+          "edgeType": "Edge",
+          "source": "cd9e307dc82a4508ad708c0dd87a4342",
+          "target": "9ecd494b81114f06a803736fd0c6dd89",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "9fe56b7b24434fb2ba63acdf296dc65b",
+          "edgeType": "Branch",
+          "source": "9ecd494b81114f06a803736fd0c6dd89",
+          "target": "e28f028b3e834237b9f609b2b45b4d0a",
+          "sourcePort": "",
+          "targetPort": "",
+          "expression": {
+            "value": "vaInputs.search_again=",
+            "mode": "query"
+          },
+          "label": "No"
+        },
+        {
+          "id": "1fae0ebb71dd4aef9d41cf191ed62150",
+          "edgeType": "Branch",
+          "source": "9ecd494b81114f06a803736fd0c6dd89",
+          "target": "ac48bb49bb2a4259b43c4bf4f70efb94",
+          "sourcePort": "",
+          "targetPort": "",
+          "expression": {
+            "value": "vaInputs.search_again=true",
+            "mode": "query"
+          },
+          "label": "Oui"
+        }
+      ]
+    }
+  },
+  "variables": {
+    "4f52f4a0acc348cb87268e77e7a78507": {
+      "category": "vaInputs",
+      "id": "4f52f4a0acc348cb87268e77e7a78507",
+      "label": "User",
+      "name": "user",
+      "table": "sys_user",
+      "varType": "reference"
+    },
+    "07dc2487f27c43b8a92d0d875df91f74": {
+      "id": "07dc2487f27c43b8a92d0d875df91f74",
+      "name": "pair_group",
+      "label": "Pair Group",
+      "varType": "reference",
+      "table": "sys_user_group",
+      "category": "vaInputs"
+    },
+    "f36b25db454940af9dcd30855792a991": {
+      "id": "f36b25db454940af9dcd30855792a991",
+      "name": "search_again",
+      "label": "Search Again",
+      "varType": "boolean",
+      "category": "vaInputs"
+    }
+  }
+}</graph>
+        <key_phrases>Trouver les noms des binômes,Get group members,Binome,Binômes</key_phrases>
+        <library>false</library>
+        <live_agent>false</live_agent>
+        <name>Trouver les noms des binômes</name>
+        <nlu_intent/>
+        <nlu_intent_label/>
+        <nlu_model/>
+        <nlu_model_label/>
+        <nlu_provider/>
+        <roles/>
+        <source_topic_id>f3b99f622f7320102be4808cf699b6ac</source_topic_id>
+        <sys_class_name>sys_cb_topic</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2021-05-03 15:36:53</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_id>0610c0132f3320102be4808cf699b60f</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>Trouver les noms des binômes</sys_name>
+        <sys_package display_value="Service portal 1" source="x_594833_service_p">66ae3ab52f3320102be4808cf699b67c</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Service portal 1">66ae3ab52f3320102be4808cf699b67c</sys_scope>
+        <sys_update_name>sys_cb_topic_0610c0132f3320102be4808cf699b60f</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2021-05-03 15:40:54</sys_updated_on>
+        <type>STANDARD</type>
+        <variables/>
+    </sys_cb_topic>
+    <sys_variable_value action="delete_multiple" query="document_key=0610c0132f3320102be4808cf699b60f"/>
+</record_update>

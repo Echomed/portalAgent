@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
-    <element label="Exigences" max_length="40" name="x_594833_service_p_exigences" type="collection">
+    <element label="Exigences" max_length="40" name="x_594833_service_p_exigences" sizeclass="3" type="collection">
         <element label="Exigence" max_length="40" name="exigence" type="string"/>
         <element attributes="edge_encryption_enabled=true" choice="3" default="TBD" label="Etat" mandatory="true" max_length="40" name="u_etat" type="string">
             <choice>

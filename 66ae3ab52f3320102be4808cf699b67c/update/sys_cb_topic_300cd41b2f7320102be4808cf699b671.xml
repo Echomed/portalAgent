@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_cb_topic">
+    <sys_cb_topic action="INSERT_OR_UPDATE">
+        <applicability/>
+        <category/>
+        <channels/>
+        <connect_queue/>
+        <description>Crée une exigence pour le groupe de l'utilisateur</description>
+        <flexible_conversation_switching>false</flexible_conversation_switching>
+        <graph>{
+  "graph_api_version": "1.0.21",
+  "goals": {
+    "primary": {
+      "id": "primary",
+      "trigger": {
+        "type": "primary"
+      },
+      "name": "primary",
+      "applicability": "",
+      "description": "",
+      "nodes": {
+        "b5333b5e7979412890522d80b8dddd58": {
+          "id": "b5333b5e7979412890522d80b8dddd58",
+          "stepType": "Start",
+          "name": "Start",
+          "greetingResponse": {
+            "mode": "simple",
+            "value": ""
+          }
+        },
+        "4270266308524c44876f4466097105fe": {
+          "id": "4270266308524c44876f4466097105fe",
+          "stepType": "TerminateGoal",
+          "name": "End",
+          "confirmationMessage": {
+            "mode": "simple",
+            "value": ""
+          }
+        },
+        "ab76f7afb3fb406984dafbd93821077a": {
+          "id": "ab76f7afb3fb406984dafbd93821077a",
+          "stepType": "Prompt",
+          "name": "Nom exigence",
+          "prompt": {
+            "value": "Quel est l'exigence?",
+            "mode": "simple"
+          },
+          "confirmMessage": {
+            "value": "",
+            "mode": "simple"
+          },
+          "acknowledgeMsg": {
+            "value": "",
+            "mode": "simple"
+          },
+          "applicability": {
+            "value": "",
+            "mode": "query"
+          },
+          "skippable": {
+            "value": "",
+            "mode": "query"
+          },
+          "defaultValue": {
+            "value": "",
+            "mode": "simple"
+          },
+          "withNluUserInput": false,
+          "skipIfFulfilled": false,
+          "variableId": "13a07314ab5743b4956a2aa6764efd5b",
+          "inputType": {
+            "format": "Text",
+            "script": ""
+          }
+        },
+        "e9de85b52bb34b57ad6fe14f31d262e3": {
+          "stepType": "ChoicePrompt",
+          "name": "Etat exigence",
+          "prompt": {
+            "value": "Quel est l'état de l'exigence?",
+            "mode": "simple"
+          },
+          "confirmMessage": {
+            "value": "",
+            "mode": "simple"
+          },
+          "acknowledgeMsg": {
+            "value": "",
+            "mode": "simple"
+          },
+          "applicability": {
+            "value": "",
+            "mode": "query"
+          },
+          "skippable": {
+            "value": "",
+            "mode": "query"
+          },
+          "defaultValue": {
+            "value": "",
+            "mode": "simple"
+          },
+          "variableId": "2283f35aeea04a4b8145d02cc7064fde",
+          "id": "e9de85b52bb34b57ad6fe14f31d262e3",
+          "withNluUserInput": false,
+          "skipIfFulfilled": false
+        },
+        "e12d6600f59143759459794e639a4874": {
+          "id": "e12d6600f59143759459794e639a4874",
+          "stepType": "CrudAction",
+          "name": "Ajouter Exigence",
+          "template": "exigence={{vaInputs.nom_exigence}}^u_etat={{vaInputs.etat_exigence}}^u_groupe={{vaInputs.groupe_exigence}}",
+          "mode": "create",
+          "record": "",
+          "applicability": {
+            "value": "",
+            "mode": "query"
+          },
+          "variableId": "f1037a20ab674df199cb45a2b022c43c"
+        },
+        "6473c5ceab364b2d8836b52c7cf79fb0": {
+          "stepType": "ChoicePrompt",
+          "name": "Groupe Exigence",
+          "prompt": {
+            "value": "Quel est le groupe responsable de cet exigence?",
+            "mode": "simple"
+          },
+          "confirmMessage": {
+            "value": "",
+            "mode": "simple"
+          },
+          "acknowledgeMsg": {
+            "value": "",
+            "mode": "simple"
+          },
+          "applicability": {
+            "value": "",
+            "mode": "query"
+          },
+          "skippable": {
+            "value": "",
+            "mode": "query"
+          },
+          "defaultValue": {
+            "value": "",
+            "mode": "simple"
+          },
+          "variableId": "09093d81b83b45588aa5974b26ae25f2",
+          "id": "6473c5ceab364b2d8836b52c7cf79fb0",
+          "withNluUserInput": false,
+          "skipIfFulfilled": false
+        }
+      },
+      "edges": [
+        {
+          "id": "7719425e8dc848ed9c13ea2a7dfca104",
+          "edgeType": "Edge",
+          "source": "b5333b5e7979412890522d80b8dddd58",
+          "target": "ab76f7afb3fb406984dafbd93821077a",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "7cf3ab746a0041c4b6fd6b5ed35bfd45",
+          "edgeType": "Edge",
+          "source": "ab76f7afb3fb406984dafbd93821077a",
+          "target": "e9de85b52bb34b57ad6fe14f31d262e3",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "d9a1d148849640ccb6521329c64fe4e6",
+          "edgeType": "Edge",
+          "source": "e12d6600f59143759459794e639a4874",
+          "target": "4270266308524c44876f4466097105fe",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "2eb88bce9f4b4a50a783d819be5f83e1",
+          "edgeType": "Edge",
+          "source": "e9de85b52bb34b57ad6fe14f31d262e3",
+          "target": "6473c5ceab364b2d8836b52c7cf79fb0",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "1f43a99d763443aa8c73f1c961904fc6",
+          "edgeType": "Edge",
+          "source": "6473c5ceab364b2d8836b52c7cf79fb0",
+          "target": "e12d6600f59143759459794e639a4874",
+          "sourcePort": "",
+          "targetPort": ""
+        }
+      ]
+    }
+  },
+  "variables": {
+    "current-user": {
+      "category": "vaInputs",
+      "id": "current-user",
+      "label": "User",
+      "name": "user",
+      "table": "sys_user",
+      "varType": "reference"
+    },
+    "13a07314ab5743b4956a2aa6764efd5b": {
+      "id": "13a07314ab5743b4956a2aa6764efd5b",
+      "name": "nom_exigence",
+      "label": "Nom Exigence",
+      "varType": "string",
+      "category": "vaInputs"
+    },
+    "2283f35aeea04a4b8145d02cc7064fde": {
+      "id": "2283f35aeea04a4b8145d02cc7064fde",
+      "name": "etat_exigence",
+      "label": "Etat Exigence",
+      "varType": "choice",
+      "choices": [
+        {
+          "label": "Done",
+          "value": "done"
+        },
+        {
+          "label": "To Be Done",
+          "value": "to be done",
+          "checked": true
+        },
+        {
+          "label": "Work In Progress",
+          "value": "work in progress",
+          "checked": true
+        },
+        {
+          "label": "On Hold ",
+          "value": "on hold",
+          "checked": true
+        }
+      ],
+      "category": "vaInputs"
+    },
+    "f1037a20ab674df199cb45a2b022c43c": {
+      "id": "f1037a20ab674df199cb45a2b022c43c",
+      "name": "ajouter_exigence",
+      "label": "Ajouter Exigence",
+      "varType": "reference",
+      "table": "x_594833_service_p_exigences",
+      "inactive": false,
+      "category": "vaInputs"
+    },
+    "09093d81b83b45588aa5974b26ae25f2": {
+      "id": "09093d81b83b45588aa5974b26ae25f2",
+      "name": "groupe_exigence",
+      "label": "Groupe Exigence",
+      "varType": "choice",
+      "choices": [
+        {
+          "label": "Binôme 1",
+          "value": "binôme 1"
+        },
+        {
+          "label": "Binôme 2",
+          "value": "binôme 2",
+          "checked": true
+        },
+        {
+          "label": "Binôme 3",
+          "value": "binôme 3",
+          "checked": true
+        }
+      ],
+      "category": "vaInputs"
+    }
+  }
+}</graph>
+        <key_phrases>Créer exigence,creer,exigence,créer</key_phrases>
+        <library>false</library>
+        <live_agent>false</live_agent>
+        <name>Créer exigence</name>
+        <nlu_intent/>
+        <nlu_intent_label/>
+        <nlu_model/>
+        <nlu_model_label/>
+        <nlu_provider/>
+        <roles/>
+        <source_topic_id/>
+        <sys_class_name>sys_cb_topic</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2021-05-03 17:38:51</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_id>300cd41b2f7320102be4808cf699b671</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>Créer exigence</sys_name>
+        <sys_package display_value="Service portal 1" source="x_594833_service_p">66ae3ab52f3320102be4808cf699b67c</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Service portal 1">66ae3ab52f3320102be4808cf699b67c</sys_scope>
+        <sys_update_name>sys_cb_topic_300cd41b2f7320102be4808cf699b671</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2021-05-03 17:47:50</sys_updated_on>
+        <type>STANDARD</type>
+        <variables/>
+    </sys_cb_topic>
+    <sys_variable_value action="delete_multiple" query="document_key=300cd41b2f7320102be4808cf699b671"/>
+</record_update>
